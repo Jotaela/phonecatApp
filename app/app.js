@@ -13,8 +13,10 @@ angular.module('phonecatApp', ['ui.router', 'phoneList', 'phoneDetail']).
             url: '/phones/:phoneId',
             templateUrl: './phone-detail/phone-detail.template.html',
             //controller: 'PhoneDetailController'
-            controller: function ($scope,$stateParams) {
-                $scope.phoneId=$stateParams.phoneId;
+            controller: function ($http,$scope,$stateParams) {
+                $http.get('phones/' + $stateParams.phoneId + '.json').then(function (response) {
+                    $scope.phone = response.data;
+                });
             }
         })
         $urlRouterProvider.otherwise('/phones');
