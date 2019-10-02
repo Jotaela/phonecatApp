@@ -1,4 +1,4 @@
-angular.module('phonecatApp', ['ui.router', 'phoneList', 'phoneDetail']).
+angular.module('phonecatApp', ['ui.router', 'phoneList', 'phoneDetail', 'core', 'ngAnimate']).
     config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider.state('phones', {
             url: '/phones',
@@ -13,12 +13,15 @@ angular.module('phonecatApp', ['ui.router', 'phoneList', 'phoneDetail']).
             url: '/phones/:phoneId',
             templateUrl: './phone-detail/phone-detail.template.html',
             //controller: 'PhoneDetailController'
-            controller: function ($http,$scope,$stateParams) {
-                $http.get('phones/' + $stateParams.phoneId + '.json').then(function (response) {
-                    $scope.phone = response.data;
-                });
+            controller: function ($http, $scope, $stateParams, Phone) {
+                $scope.setImage = function setImage(imageUrl) {
+                    $scope.mainImageUrl = imageUrl;
+                };
+                $scope.phone = Phone.get({ phoneId: $stateParams.phoneId }, function (phone) {
+                    $scope.setImage(phone.images[0]);
+                })
             }
-        })
-        $urlRouterProvider.otherwise('/phones');
         });
+        $urlRouterProvider.otherwise('/phones');
+    });
         

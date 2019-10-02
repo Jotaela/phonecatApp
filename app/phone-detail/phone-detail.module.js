@@ -1,1 +1,1 @@
-angular.module('phoneDetail', ['ui.router']);
+angular.module('phoneDetail', ['ui.router','core.phone']);

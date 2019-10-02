@@ -2,11 +2,11 @@ angular.module('phonecatApp').
     controller('PhoneListController', [
         '$scope',
         '$http',
-        function PhoneListController($scope, $http) {
+        'Phone',
+        function PhoneListController($scope, $http, Phone) {
 
-        $http.get('phones/phones.json').then(function (response) {
-            $scope.phones = response.data
-        });
+            $scope.phones = Phone.query();
 
-        orderProp = 'age';
-    }]);
+            orderProp = 'age';
+        }
+    ]);
