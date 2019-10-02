@@ -1,6 +1,8 @@
 <ul>
-    <li ng-repeat="phone in $ctrl.phones">
+    <li ng-repeat="phone in phones">
         <span>{{phone.name}}</span>
         <p>{{phone.snippet}}</p>
     </li>
 </ul>
+<div ui-view="vista1"></div>
+<div ui-view="vista2"></div>
