@@ -1,7 +1,7 @@
-angular.module('phonecatApp', ['ui.router', 'phoneList']).
+angular.module('phonecatApp', ['ui.router', 'phoneList', 'phoneDetail']).
     config(function ($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('home', {
-            url: '/home',
+        $stateProvider.state('phones', {
+            url: '/phones',
             views: {
                 '': { templateUrl: 'phone-list/phone-list.template.html', controller: 'PhoneListController' },
                 'vista1@home': { template: '<h1>Vista 1</h1>' },
@@ -9,5 +9,14 @@ angular.module('phonecatApp', ['ui.router', 'phoneList']).
 
             }
         });
-        $urlRouterProvider.otherwise('/home');
-    });
+        $stateProvider.state('phone', {
+            url: '/phones/:phoneId',
+            templateUrl: './phone-detail/phone-detail.template.html',
+            //controller: 'PhoneDetailController'
+            controller: function ($scope,$stateParams) {
+                $scope.phoneId=$stateParams.phoneId;
+            }
+        })
+        $urlRouterProvider.otherwise('/phones');
+        });
+        
